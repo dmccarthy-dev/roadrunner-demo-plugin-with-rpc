@@ -1,14 +1,26 @@
 package roadrunner_demo_plugin_with_rpc
 
-import "fmt"
+import (
+	"fmt"
+	"go.uber.org/zap"
+)
 
-func (s *rpc) GetMessage(_ string, output *string) error {
-	*output = s.plugin.cfg.Message
-	s.log.Debug("foo")
+type rpc struct {
+	plugin *Plugin
+	log    *zap.Logger
+}
+
+func (p *Plugin) RPC() any {
+	return &rpc{plugin: p, log: p.logger}
+}
+
+func (r *rpc) GetMessage(_ string, output *string) error {
+	*output = r.plugin.cfg.Message
+	r.log.Debug("foo")
 	return nil
 }
 
-func (s *rpc) Add(params AddParams, output *AddResponse) error {
+func (r *rpc) Add(params AddParams, output *AddResponse) error {
 
 	fmt.Println("params.Num1", params.Num1)
 	fmt.Println("params.Num2", params.Num2)

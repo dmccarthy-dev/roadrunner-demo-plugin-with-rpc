@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const PluginName = "roadrunner_demo_plugin_with_rpc"
+const PluginName = "plugin_with_rpc"
 
 type Plugin struct {
 	cfg    *Config
@@ -54,11 +54,6 @@ func (p *Plugin) Stop(_ context.Context) error {
 	return nil
 }
 
-type rpc struct {
-	plugin *Plugin
-	log    *zap.Logger
-}
-
-func (p *Plugin) RPC() any {
-	return &rpc{plugin: p, log: p.logger}
+func (p *Plugin) Name() string {
+	return PluginName
 }
