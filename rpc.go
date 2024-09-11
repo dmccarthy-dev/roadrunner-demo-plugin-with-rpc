@@ -6,16 +6,17 @@ import (
 )
 
 type rpc struct {
-	plugin *Plugin
-	log    *zap.Logger
+	srv *Plugin
+	log *zap.Logger
 }
 
 func (p *Plugin) RPC() any {
-	return &rpc{plugin: p, log: p.logger}
+	fmt.Println(">>>RPC()")
+	return &rpc{srv: p, log: p.logger}
 }
 
 func (r *rpc) GetMessage(_ string, output *string) error {
-	*output = r.plugin.cfg.Message
+	*output = r.srv.cfg.Message
 	r.log.Debug("foo")
 	return nil
 }

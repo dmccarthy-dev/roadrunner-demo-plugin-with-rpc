@@ -2,6 +2,7 @@ package roadrunner_demo_plugin_with_rpc
 
 import (
 	"context"
+	"github.com/roadrunner-server/endure/v2/dep"
 	"github.com/roadrunner-server/errors"
 	"go.uber.org/zap"
 )
@@ -56,4 +57,8 @@ func (p *Plugin) Stop(_ context.Context) error {
 
 func (p *Plugin) Name() string {
 	return PluginName
+}
+
+func (p *Plugin) Collects() []*dep.In {
+	return nil
 }
